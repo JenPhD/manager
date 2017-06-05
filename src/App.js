@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
-import firebase from 'react-native-firebase';
+import firebase from 'firebase';
 import ReduxThunk from 'redux-thunk';
-import reducers from './reducers';
-import LoginForm from './components/LoginForm';
+import reducers from './reducers';;
+import Router from './Router';
 
+const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
-class App extends Component {
+export default class App extends Component {
   componentWillMount() {
     const config = {
       apiKey: 'AIzaSyAnMQxTem24CKnh74zdFzPAQoaFpDbk8SM',
@@ -21,13 +22,10 @@ class App extends Component {
   }
 
   render() {
-    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
         <Provider store={store}>
-          <LoginForm />
+          <Router />
         </Provider>
       );
     }
 }
-
-export default App;
